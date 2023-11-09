@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/star-map-simulator/static/css/main.5ba13408.css",
-    "main.js": "/star-map-simulator/static/js/main.2c7d6244.js",
+    "main.css": "/star-map-simulator/static/css/main.55af8e8c.css",
+    "main.js": "/star-map-simulator/static/js/main.125acb25.js",
     "index.html": "/star-map-simulator/index.html",
-    "main.5ba13408.css.map": "/star-map-simulator/static/css/main.5ba13408.css.map",
-    "main.2c7d6244.js.map": "/star-map-simulator/static/js/main.2c7d6244.js.map"
+    "main.55af8e8c.css.map": "/star-map-simulator/static/css/main.55af8e8c.css.map",
+    "main.125acb25.js.map": "/star-map-simulator/static/js/main.125acb25.js.map"
   },
   "entrypoints": [
-    "static/css/main.5ba13408.css",
-    "static/js/main.2c7d6244.js"
+    "static/css/main.55af8e8c.css",
+    "static/js/main.125acb25.js"
   ]
 }
