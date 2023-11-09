@@ -1,3 +1,4 @@
+import Map from './Map/Map';
 import SkySimulation from './SkySimulator/SkySimulator';
 
 const style = {
@@ -11,6 +12,7 @@ export const App = () => {
     <div style={style}>
       <h1 style={{ color: 'white' }}>Simulator by TRNVD 🥷</h1>
       <SkySimulation />
+      <Map />
     </div>
   );
 };

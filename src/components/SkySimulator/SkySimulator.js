@@ -1,42 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { useTrail, animated } from 'react-spring';
+import { animated } from 'react-spring';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './SkySimulation.css';
 
 const SkySimulation = () => {
   const [isAnimating, setIsAnimating] = useState(false);
-  const [animationSpeed, setAnimationSpeed] = useState(10); // Початкова швидкість
-  const [blockColors, setBlockColors] = useState(Array(12).fill('black'));
+  const [animationSpeed, setAnimationSpeed] = useState(10);
+  const [activeBlock, setActiveBlock] = useState(0);
 
   useEffect(() => {
+    let interval;
     if (isAnimating) {
-      const animationInterval = setInterval(() => {
-        setBlockColors(Array(12).fill('white'));
-        setTimeout(() => {
-          setBlockColors(Array(12).fill('black'));
-        }, 100 / animationSpeed);
+      interval = setInterval(() => {
+        setActiveBlock(prevBlock => (prevBlock + 1) % 12);
       }, 1000 / animationSpeed);
-
-      return () => {
-        clearInterval(animationInterval);
-      };
+    } else {
+      clearInterval(interval);
     }
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [isAnimating, animationSpeed]);
 
-  //* Change slider speed animation
   const handleSpeedChange = value => {
     setAnimationSpeed(value);
   };
 
-  const blockColorAnimations = useTrail(12, {
-    from: { backgroundColor: 'grey' },
-    to: {
-      backgroundColor: isAnimating ? 'white' : 'grey',
-    },
-    config: { duration: 1000 / animationSpeed },
-    reverse: !isAnimating,
-  });
+  const blocks = Array(12).fill(0);
 
   return (
     <div className="sky-simulation">
@@ -46,18 +38,21 @@ const SkySimulation = () => {
       <div>
         <h2>Change speed animation</h2>
         <Slider
-          min={10}
+          min={1}
           max={50}
           value={animationSpeed}
           onChange={handleSpeedChange}
         />
       </div>
       <div className="controller">
-        {blockColors.map((color, index) => (
+        {blocks.map((_, index) => (
           <animated.div
             key={index}
             className="controller-block"
-            style={blockColorAnimations[index]}
+            style={{
+              backgroundColor:
+                index === activeBlock ? 'white' : 'rgb(48, 48, 48)',
+            }}
           >
             {index + 1}
           </animated.div>

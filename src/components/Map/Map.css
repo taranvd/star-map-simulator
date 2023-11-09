@@ -1,0 +1,12 @@
+/* styles.css */
+.full-screen-container {
+  width: 1200px; /* 100% ширина вікна браузера */
+  height: calc(100vh - 100px); /* 100% висота вікна браузера */
+  margin-bottom: 50px;
+  padding: 0;
+  overflow: hidden; /* Щоб видалити зайвий скролл */
+}
+
+.map {
+    border-radius: 30px;
+}
