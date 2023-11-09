@@ -1,7 +1,13 @@
 .sky-simulation {
-  position: relative;
-  width: 100%;
-  height: 100vh;
+    margin-top: 50px;
+position: relative;
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  
 }
 
 .map {
@@ -15,15 +21,6 @@
   position: relative;
 }
 
-.point {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background-color: blue;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1; /* Встановлення меншого z-index, ніж червоний кружок */
-}
 
 .controller {
   margin-top: 20px;
@@ -33,15 +30,15 @@
 }
 
 .controller-block {
-  color: white;
-  background-color: #000;
+  color: rgb(0, 0, 0);
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer; /* Додаємо курсор, щоб показати, що блоки можна натискати */
 }
 
-.controller-block.selected {
-  border: 2px solid yellow; /* Виділяємо обрані блоки жовтим контуром */
+
+
+
+.test{
+    color: rgb(48, 48, 48);
 }
-
-
