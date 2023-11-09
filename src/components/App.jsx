@@ -1,16 +1,10 @@
+import SkySimulation from './SkySimulator/SkySimulator';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
+    <div>
+      <h1>Simulator by TRNVD 🥷</h1>
+      <SkySimulation />
     </div>
   );
 };

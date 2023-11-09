@@ -1,0 +1,31 @@
+.sky-simulation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.map {
+    margin-top: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: blue;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1; /* Встановлення меншого z-index, ніж червоний кружок */
+}
+
+
+
+
+
