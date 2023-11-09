@@ -25,7 +25,23 @@
   z-index: 1; /* Встановлення меншого z-index, ніж червоний кружок */
 }
 
+.controller {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
+.controller-block {
+  color: white;
+  background-color: #000;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer; /* Додаємо курсор, щоб показати, що блоки можна натискати */
+}
 
+.controller-block.selected {
+  border: 2px solid yellow; /* Виділяємо обрані блоки жовтим контуром */
+}
 
 

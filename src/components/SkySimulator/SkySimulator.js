@@ -6,17 +6,22 @@ const SkySimulation = () => {
   const [points, setPoints] = useState([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationSpeed, setAnimationSpeed] = useState(5);
+  const [selectedBlock, setSelectedBlock] = useState(null); // Додано стан для виділеного блоку
 
   const handleMapClick = e => {
-    if (!isAnimating) {
+    if (!isAnimating && selectedBlock) {
       const x = e.nativeEvent.offsetX;
       const y = e.nativeEvent.offsetY;
-      setPoints([...points, { x, y, opacity: 1, color: 'gray' }]);
+      setPoints([
+        ...points,
+        { x, y, opacity: 1, color: 'gray', block: selectedBlock },
+      ]);
     }
   };
 
   const handleClearPoints = () => {
-    setPoints([]);
+    // Очищаємо тільки точки, які прив'язані до виділеного блоку
+    setPoints(points.filter(point => point.block !== selectedBlock));
   };
 
   const trail = useTrail(points.length, {
@@ -28,32 +33,14 @@ const SkySimulation = () => {
 
   const cometSpring = useSpring({
     to: isAnimating
-      ? { x: points[0]?.x || 0, y: points[0]?.y || 0 }
-      : { x: points[0]?.x || 0, y: points[0]?.y || 0 },
+      ? { x: selectedBlock?.x || 0, y: selectedBlock?.y || 0 }
+      : { x: selectedBlock?.x || 0, y: selectedBlock?.y || 0 },
     config: { duration: 1000 / (animationSpeed * 2) },
   });
 
-  useEffect(() => {
-    if (isAnimating) {
-      let animationInterval;
-      let currentIndex = 0;
-
-      const animateComet = () => {
-        if (currentIndex < points.length) {
-          const nextX = points[currentIndex].x;
-          const nextY = points[currentIndex].y;
-          cometSpring.to({ x: nextX, y: nextY });
-          currentIndex++;
-        }
-      };
-
-      animationInterval = setInterval(animateComet, animationSpeed * 1000);
-
-      return () => {
-        clearInterval(animationInterval);
-      };
-    }
-  }, [isAnimating, points, animationSpeed, cometSpring]);
+  const handleBlockClick = block => {
+    setSelectedBlock(block);
+  };
 
   return (
     <div className="sky-simulation">
@@ -72,6 +59,19 @@ const SkySimulation = () => {
         />
         <span>Швидкість анімації: {animationSpeed}</span>
       </div>
+      <div className="controller">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((block, index) => (
+          <div
+            key={index}
+            className={`controller-block ${
+              block === selectedBlock ? 'selected' : ''
+            }`} // Виділяємо виділений блок
+            onClick={() => handleBlockClick(block)}
+          >
+            {block}
+          </div>
+        ))}
+      </div>
       <div className="map" onClick={handleMapClick}>
         {trail.map((props, index) => (
           <animated.div
@@ -85,25 +85,27 @@ const SkySimulation = () => {
             }}
           ></animated.div>
         ))}
-        {isAnimating && points.length > 0 && (
-          <>
-            <animated.div
-              className="comet"
-              style={{
-                top: cometSpring.y,
-                left: cometSpring.x,
-              }}
-            ></animated.div>
-            <animated.div
-              className="comet-trail"
-              style={{
-                top: cometSpring.y,
-                left: cometSpring.x,
-                backgroundColor: 'white',
-              }}
-            ></animated.div>
-          </>
-        )}
+        {isAnimating &&
+          selectedBlock &&
+          points.some(point => point.block === selectedBlock) && (
+            <>
+              <animated.div
+                className="comet"
+                style={{
+                  top: cometSpring.y,
+                  left: cometSpring.x,
+                }}
+              ></animated.div>
+              <animated.div
+                className="comet-trail"
+                style={{
+                  top: cometSpring.y,
+                  left: cometSpring.x,
+                  backgroundColor: 'white',
+                }}
+              ></animated.div>
+            </>
+          )}
       </div>
     </div>
   );
